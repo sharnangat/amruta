@@ -36,6 +36,84 @@ def factorial(n):
     return result
 
 
+def is_prime(number):
+    """Return True if number is prime, else False."""
+    if number < 2:
+        return False
+    for value in range(2, int(number ** 0.5) + 1):
+        if number % value == 0:
+            return False
+    return True
+
+
+def reverse_number(number):
+    """Return the reversed form of an integer."""
+    sign = -1 if number < 0 else 1
+    reversed_str = str(abs(number))[::-1]
+    return sign * int(reversed_str)
+
+
+def sum_of_digits(number):
+    """Return sum of digits in an integer."""
+    return sum(int(ch) for ch in str(abs(number)))
+
+
+def fibonacci_series(count):
+    """Return first 'count' Fibonacci numbers as a list."""
+    if count <= 0:
+        return []
+    if count == 1:
+        return [0]
+    series = [0, 1]
+    while len(series) < count:
+        series.append(series[-1] + series[-2])
+    return series
+
+
+def is_palindrome_text(text):
+    """Check if given text is a palindrome (ignoring case/spaces)."""
+    cleaned = "".join(ch.lower() for ch in text if ch.isalnum())
+    return cleaned == cleaned[::-1]
+
+
+def multiplication_table(number, limit=10):
+    """Return multiplication table lines for a number up to limit."""
+    lines = []
+    for value in range(1, limit + 1):
+        lines.append(f"{number} x {value} = {number * value}")
+    return lines
+
+
+def gcd(a, b):
+    """Return the greatest common divisor of two integers."""
+    a = abs(a)
+    b = abs(b)
+    while b != 0:
+        a, b = b, a % b
+    return a
+
+
+def lcm(a, b):
+    """Return least common multiple of two integers."""
+    if a == 0 or b == 0:
+        return 0
+    return abs(a * b) // gcd(a, b)
+
+
+def is_armstrong(number):
+    """Check whether a number is an Armstrong number."""
+    digits = str(abs(number))
+    power = len(digits)
+    total = sum(int(ch) ** power for ch in digits)
+    return total == abs(number)
+
+
+def count_vowels(text):
+    """Return number of vowels in text."""
+    vowels = "aeiouAEIOU"
+    return sum(1 for ch in text if ch in vowels)
+
+
 def main():
     print("=== Basic Logic Development Program ===")
 
@@ -44,9 +122,19 @@ def main():
         print("1. Check even or odd")
         print("2. Find largest of three numbers")
         print("3. Calculate factorial")
-        print("4. Exit")
+        print("4. Check prime number")
+        print("5. Reverse a number")
+        print("6. Sum of digits")
+        print("7. Generate Fibonacci series")
+        print("8. Palindrome check (text)")
+        print("9. Multiplication table")
+        print("10. GCD of two numbers")
+        print("11. LCM of two numbers")
+        print("12. Armstrong number check")
+        print("13. Count vowels in text")
+        print("14. Exit")
 
-        choice = input("Enter choice (1-4): ").strip()
+        choice = input("Enter choice (1-14): ").strip()
 
         if choice == "1":
             num = int(input("Enter an integer: "))
@@ -67,6 +155,63 @@ def main():
                 print(f"Factorial of {n} is {fact}")
 
         elif choice == "4":
+            num = int(input("Enter an integer: "))
+            if is_prime(num):
+                print(f"{num} is a prime number.")
+            else:
+                print(f"{num} is not a prime number.")
+
+        elif choice == "5":
+            num = int(input("Enter an integer: "))
+            print(f"Reversed number: {reverse_number(num)}")
+
+        elif choice == "6":
+            num = int(input("Enter an integer: "))
+            print(f"Sum of digits: {sum_of_digits(num)}")
+
+        elif choice == "7":
+            count = int(input("How many Fibonacci terms do you want? "))
+            series = fibonacci_series(count)
+            if not series:
+                print("Please enter a positive count.")
+            else:
+                print(f"Fibonacci series ({count} terms): {series}")
+
+        elif choice == "8":
+            text = input("Enter text: ")
+            if is_palindrome_text(text):
+                print("It is a palindrome.")
+            else:
+                print("It is not a palindrome.")
+
+        elif choice == "9":
+            num = int(input("Enter a number: "))
+            limit = int(input("Enter table limit (default 10 suggested): "))
+            for line in multiplication_table(num, limit):
+                print(line)
+
+        elif choice == "10":
+            a = int(input("Enter first integer: "))
+            b = int(input("Enter second integer: "))
+            print(f"GCD({a}, {b}) = {gcd(a, b)}")
+
+        elif choice == "11":
+            a = int(input("Enter first integer: "))
+            b = int(input("Enter second integer: "))
+            print(f"LCM({a}, {b}) = {lcm(a, b)}")
+
+        elif choice == "12":
+            num = int(input("Enter an integer: "))
+            if is_armstrong(num):
+                print(f"{num} is an Armstrong number.")
+            else:
+                print(f"{num} is not an Armstrong number.")
+
+        elif choice == "13":
+            text = input("Enter text: ")
+            print(f"Number of vowels: {count_vowels(text)}")
+
+        elif choice == "14":
             print("Goodbye!")
             break
 

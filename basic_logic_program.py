@@ -114,6 +114,86 @@ def count_vowels(text):
     return sum(1 for ch in text if ch in vowels)
 
 
+def day_name_from_number(day_number):
+    """Return day name for 1-7 using match-case."""
+    match day_number:
+        case 1:
+            return "Monday"
+        case 2:
+            return "Tuesday"
+        case 3:
+            return "Wednesday"
+        case 4:
+            return "Thursday"
+        case 5:
+            return "Friday"
+        case 6:
+            return "Saturday"
+        case 7:
+            return "Sunday"
+        case _:
+            return "Invalid day number"
+
+
+def simple_calculator_match(first, operator, second):
+    """Return calculator result using match-case operators."""
+    match operator:
+        case "+":
+            return first + second
+        case "-":
+            return first - second
+        case "*":
+            return first * second
+        case "/":
+            if second == 0:
+                return "Cannot divide by zero"
+            return first / second
+        case _:
+            return "Invalid operator"
+
+
+def grade_message(score):
+    """Return grade message using match-case with guards."""
+    match score:
+        case s if 90 <= s <= 100:
+            return "Grade A"
+        case s if 75 <= s < 90:
+            return "Grade B"
+        case s if 60 <= s < 75:
+            return "Grade C"
+        case s if 0 <= s < 60:
+            return "Needs Improvement"
+        case _:
+            return "Invalid score"
+
+
+def star_patterns(rows, pattern_type):
+    """Return star pattern lines based on selected type."""
+    lines = []
+
+    if pattern_type == "1":
+        for i in range(1, rows + 1):
+            lines.append("*" * i)
+    elif pattern_type == "2":
+        for i in range(rows, 0, -1):
+            lines.append("*" * i)
+    elif pattern_type == "3":
+        for i in range(1, rows + 1):
+            spaces = " " * (rows - i)
+            stars = "*" * (2 * i - 1)
+            lines.append(spaces + stars)
+    elif pattern_type == "4":
+        for i in range(1, rows + 1):
+            left = "*" * i
+            right = "*" * i
+            middle = " " * (2 * (rows - i))
+            lines.append(left + middle + right)
+    else:
+        lines.append("Invalid pattern type")
+
+    return lines
+
+
 def main():
     print("=== Basic Logic Development Program ===")
 
@@ -132,9 +212,13 @@ def main():
         print("11. LCM of two numbers")
         print("12. Armstrong number check")
         print("13. Count vowels in text")
-        print("14. Exit")
+        print("14. Switch example: day from number")
+        print("15. Switch example: simple calculator")
+        print("16. Switch example: grade message")
+        print("17. * printing patterns")
+        print("18. Exit")
 
-        choice = input("Enter choice (1-14): ").strip()
+        choice = input("Enter choice (1-18): ").strip()
 
         if choice == "1":
             num = int(input("Enter an integer: "))
@@ -212,6 +296,31 @@ def main():
             print(f"Number of vowels: {count_vowels(text)}")
 
         elif choice == "14":
+            day_number = int(input("Enter day number (1-7): "))
+            print(day_name_from_number(day_number))
+
+        elif choice == "15":
+            first = float(input("Enter first number: "))
+            operator = input("Enter operator (+, -, *, /): ").strip()
+            second = float(input("Enter second number: "))
+            print(f"Result: {simple_calculator_match(first, operator, second)}")
+
+        elif choice == "16":
+            score = int(input("Enter score (0-100): "))
+            print(grade_message(score))
+
+        elif choice == "17":
+            rows = int(input("Enter number of rows: "))
+            print("Choose star pattern:")
+            print("1. Increasing triangle")
+            print("2. Decreasing triangle")
+            print("3. Pyramid")
+            print("4. Butterfly")
+            pattern_type = input("Enter pattern choice (1-4): ").strip()
+            for line in star_patterns(rows, pattern_type):
+                print(line)
+
+        elif choice == "18":
             print("Goodbye!")
             break
 
